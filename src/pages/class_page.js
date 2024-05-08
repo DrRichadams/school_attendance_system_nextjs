@@ -4,37 +4,36 @@ import React, { useEffect, useState } from 'react'
 import { ConvertClassName } from '@/util/convert_class_name'
 import { ReConvertClassName } from '@/util/reconvert_class'
 import Link from 'next/link'
+import { GetTodayDate } from '@/util/getTodayDate'
 
 const ClassPage = () => {
 
   const [classes, set_classes ] = useState({})
   const [ my_class_name, set_my_class_name ] = useState('')
   const [ today_date, set_today_date ] = useState('')
+  const [ mark_date, set_mark_date ] = useState('')
   const [ name_input, set_name_input ] = useState('');
   const [ gender_input, set_gender_input ] = useState('');
 
   let my_class_array = classes[my_class_name];
 
-
-    let now_date = new Date();
-    let now_day = now_date.getDate();
-    let now_month = now_date.getMonth();
-    let now_year = now_date.getFullYear();
-    let full_date = `${now_day}/${now_month}/${now_year}`;
+    let full_date = GetTodayDate()
 
   useEffect(() => {
     const local_classes = localStorage.getItem("classes_object");
-    const loaded_class = localStorage.getItem("class_in_session")
-    const the_date = localStorage.getItem("today_date")
+    const loaded_class = localStorage.getItem("class_in_session");
+    const the_date = localStorage.getItem("today_date");
+    const the_mark_date = localStorage.getItem("mark_date");
 
     set_classes(JSON.parse(local_classes))
     set_my_class_name(ConvertClassName(loaded_class))
     set_today_date(the_date)
+    set_mark_date(the_mark_date)
   }, [])
 
   useEffect(() => {
     console.log("Class data: ", classes[my_class_name])
-    console.log("My Class: ", my_class_name)
+    console.log("My Class name: ", my_class_name)
   },[my_class_name])
 
   const addStudentFunc = () => {
@@ -52,15 +51,28 @@ const ClassPage = () => {
         let current_class_students = [...my_class_array, sd_object]
         set_classes({...classes, [my_class_name]: [...current_class_students]})
         localStorage.setItem("classes_object", JSON.stringify({...classes, [my_class_name]: [...current_class_students]}))
-        console.log("Datas: ", {...classes, [my_class_name]: [...current_class_students]})
-
-        console.log("Updated classes: ", classes)
-
         set_name_input('');
         set_gender_input('');
     }else{
         alert("Please, provide full student details")
     }
+  }
+
+  const handleStudentClick = (id) => {
+    console.log("Student clicked: ", id, "The mark date: ", mark_date)
+    let new_sd_array = my_class_array.map((item) => {
+        if(item.id == id){
+            console.log("Found the student ID")
+            item.dates = [...item.dates, mark_date]
+            return item
+        } else {
+            console.log("NO ID HERE")
+            return item
+        }
+        // console.log("Item data in map: ", item)
+    })
+
+    console.log("The mapped array: ", new_sd_array)
   }
 
   return (
@@ -76,7 +88,7 @@ const ClassPage = () => {
                 <div>18/06/2024</div>
                 <div>19/06/2024</div>
                 <div>20/06/2024</div>
-                {full_date != today_date ? <div>ADD DATE</div>:""}
+                {full_date != today_date ? <div style={{ border: "3px dotted black" }}>ADD DATE</div>:""}
             </div>
         </div>
         <div className='class_page_students_listing'>
@@ -93,7 +105,7 @@ const ClassPage = () => {
                 
                 {
                     my_class_array?.map((item, i) => (
-                        <div className='class_page_student_box' key={i}>
+                        <div className='class_page_student_box' key={i} onClick={() => handleStudentClick(item.id)}>
                             <p>{item.name}</p>
                             <div>{item.gender}</div>
                         </div>

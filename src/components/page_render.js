@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CreateSchool from "@/components/create_school";
 import { useRouter } from 'next/navigation';
+import { GetTodayDate } from '@/util/getTodayDate';
 
 function PageRender() {
     const school = localStorage.getItem("school_titles");
@@ -16,7 +17,9 @@ function PageRender() {
     const [ working_class, set_working_class ] = useState('')
 
     const handleProceedToClass = () => {
+        const today_date = GetTodayDate();
         localStorage.setItem("class_in_session", working_class)
+        localStorage.setItem("mark_date", today_date);
         router.push("/class_page")
         // console.log(working_class)
     }
