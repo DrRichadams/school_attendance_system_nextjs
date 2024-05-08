@@ -76,6 +76,22 @@
   color: green;
 }
 
+
+.page_render_container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.select_class_title {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+}
+
 .form_select {
   padding: 9px; 
   width: 300px;
@@ -88,4 +104,151 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+
+.select_class_btn {
+  padding: 9px; 
+  width: 300px;
+  border: none;
+  outline: none;
+  border-radius: 7px;
+  background-color: #0fcf05;
+  color: #fff;
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: .75rem;
+  cursor: pointer;
+}
+
+.select_class_btn:hover{
+  opacity: .8;
+}
+
+
+/* STYLING THE CLASS PAGE */
+
+.class_page_container {
+  position: relative;
+}
+
+.class_page_titles_dates {
+  padding: 20px;
+}
+
+.class_page_dates_container {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.class_page_dates_container div {
+  background-color: #f5f5f5;
+  width: 90px;
+  height: 50px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  font-size: .85rem;
+  cursor: pointer;
+}
+
+.class_page_titles_dates h1 {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #0fcf05;
+}
+
+.class_page_class_title {
+  font-family: sans-serif;
+  background-color: #e37f7f;
+  color: #fff;
+  max-width: 260px;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.change_class_link {
+  font-family: sans-serif;
+  font-size: .85rem;
+}
+
+.class_page_students_listing {
+  padding: 20px;
+}
+
+.class_page_new_student_form {
+  background-color: #f5f5f5;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.267);
+  max-width: 700px;
+}
+.class_page_new_student_form p {
+  font-family: sans-serif;
+  font-weight: 600;
+}
+
+.class_page_input_box {
+  display: flex;
+  gap: 12px;
+}
+
+.class_page_new_student_form input {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.class_page_new_student_form button {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background-color: #0fcf05;
+}
+
+.class_page_available_students_box {
+  background-color: #f5f5f5;
+  max-width: 500px;
+  width: 100%;
+  max-height: 500px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 20px;
+}
+
+.class_page_students_box {
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.class_page_student_box {
+  background-color: #f5f5f5;
+  padding: 12px 20px;
+  margin-bottom: 8px;
+  max-width: 500px;
+  border-radius: 8px;
+  transition: all 300ms ease-in-out;
+  cursor: pointer;
+}
+
+.class_page_student_box:hover{
+  background-color: #d6d4d4;
+}
+
+.class_page_student_box p{
+  font-family: sans-serif;
+  font-weight: 600;
 }
