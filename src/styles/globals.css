@@ -75,3 +75,17 @@
 .create_school_cancel_btn:hover{
   color: green;
 }
+
+.form_select {
+  padding: 9px; 
+  width: 300px;
+  border: none;
+  outline: none;
+  background-color: #f5f5f5;
+}
+
+.select_container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

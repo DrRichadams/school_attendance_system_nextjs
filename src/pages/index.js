@@ -15,6 +15,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
         <PageRender />
+        <div style={{ position: "absolute", bottom: "10px", left: "10px", fontFamily: "sans-serif", fontSize: ".85rem" }}>Attendance System. <br/> By Davidson Mapetese</div>
     </>
   );
 }
