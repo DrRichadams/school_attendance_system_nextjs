@@ -218,17 +218,6 @@
   background-color: #0fcf05;
 }
 
-.class_page_available_students_box {
-  background-color: #f5f5f5;
-  max-width: 500px;
-  width: 100%;
-  max-height: 500px;
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  padding: 20px;
-}
-
 .class_page_students_box {
   padding: 20px;
   margin-top: 30px;
@@ -253,3 +242,23 @@
   font-weight: 600;
 }
 
+
+.class_page_available_students_box {
+  background-color: #f5f5f5;
+  max-width: 400px;
+  width: 100%;
+  max-height: 500px;
+  min-height: 50vh;
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+  padding: 20px;
+}
+
+.available_students_title {
+  font-family: sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: .95rem;
+  margin-bottom: 10px;
+}

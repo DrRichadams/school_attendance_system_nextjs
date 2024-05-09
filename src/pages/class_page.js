@@ -14,8 +14,14 @@ const ClassPage = () => {
   const [ mark_date, set_mark_date ] = useState('')
   const [ name_input, set_name_input ] = useState('');
   const [ gender_input, set_gender_input ] = useState('');
+  const [ dates_array, set_dates_array ] = useState([]);
 
   let my_class_array = classes[my_class_name];
+  const available_students = my_class_array?.filter((item) => {
+    return item.dates.includes(mark_date)
+  })
+
+  console.log("Filtere items: ", available_students)
 
     let full_date = GetTodayDate()
 
@@ -24,16 +30,19 @@ const ClassPage = () => {
     const loaded_class = localStorage.getItem("class_in_session");
     const the_date = localStorage.getItem("today_date");
     const the_mark_date = localStorage.getItem("mark_date");
+    const dates_array = localStorage.getItem("dates_array");
 
     set_classes(JSON.parse(local_classes))
     set_my_class_name(ConvertClassName(loaded_class))
     set_today_date(the_date)
     set_mark_date(the_mark_date)
+    set_dates_array(JSON.parse(dates_array))
   }, [])
 
   useEffect(() => {
-    console.log("Class data: ", classes[my_class_name])
-    console.log("My Class name: ", my_class_name)
+    // console.log("Class data: ", classes[my_class_name])
+    // console.log("My Class name: ", my_class_name)
+    console.log("Dates array: ", dates_array)
   },[my_class_name])
 
   const addStudentFunc = () => {
@@ -45,7 +54,8 @@ const ClassPage = () => {
             name: name_input,
             gender: gender_input,
             class: my_class_name,
-            dates: [`${full_date}`]
+            // dates: [`${full_date}`]
+            dates: []
         }
         // ADD STUDENT TO THE DATABASE
         let current_class_students = [...my_class_array, sd_object]
@@ -59,7 +69,7 @@ const ClassPage = () => {
   }
 
   const handleStudentClick = (id) => {
-    console.log("Student clicked: ", id, "The mark date: ", mark_date)
+    // console.log("Student clicked: ", id, "The mark date: ", mark_date)
     let new_sd_array = my_class_array.map((item) => {
         if(item.id == id){
             // console.log("Found the student ID")
@@ -74,7 +84,19 @@ const ClassPage = () => {
     // ADD THE NEW STUDENT ARRAY TO ALL CLASSES THEN ADD ALL CLASSES TO DATABASE
     let new_classes_array = { ...classes, [my_class_name]: new_sd_array }
     localStorage.setItem("classes_object", JSON.stringify(new_classes_array))
-    console.log("New classes array: ", new_classes_array)
+    window.location.reload()
+    // console.log("New classes array: ", new_classes_array)
+  }
+
+  const handleDateClick = (date) => {
+    localStorage.setItem("mark_date", date)
+    window.location.reload()
+  }
+
+  const handleAddDate = () => {
+    localStorage.setItem("dates_array", JSON.stringify([...dates_array, full_date]))
+    // console.log("My dates: ", [...dates_array, full_date])1
+    window.location.reload()
   }
 
   return (
@@ -86,11 +108,20 @@ const ClassPage = () => {
                 <Link href="/" className='change_class_link'>Change class</Link>
             </div>
             <div className='class_page_dates_container'>
-                <div>17/06/2024</div>
-                <div>18/06/2024</div>
-                <div>19/06/2024</div>
-                <div>20/06/2024</div>
-                {full_date != today_date ? <div style={{ border: "3px dotted black" }}>ADD DATE</div>:""}
+                {
+                    dates_array.map((item) => {
+                        return(
+                            <div 
+                                style={{ backgroundColor: mark_date == item? "#0fcf05":"#f5f5f5" }}
+                                onClick={() => handleDateClick(item)}
+                                >
+                                    {item}
+                                </div>
+                        )
+                    })
+                }
+                {/* {full_date != today_date ? <div style={{ border: "3px dotted black" }}>ADD DATE</div>:""} */}
+                <div style={{ border: "3px dotted black" }} onClick={handleAddDate}>ADD DATE</div>
             </div>
         </div>
         <div className='class_page_students_listing'>
@@ -119,7 +150,23 @@ const ClassPage = () => {
 
 
         <div className='class_page_available_students_box'>
-            <p>Available students for the date of: </p>
+            <p className='available_students_title'>Available students for the date of: </p>
+            <p style={{ fontFamily: "sans-serif", fontSize: "2rem", fontWeight: "900", color: "#0fcf05" }}>{mark_date}</p><br/>
+            <div>
+                {
+                    my_class_array?.filter((item) => {
+                        // console.log("Filter item: ", item.dates.includes(mark_date))
+                        return item.dates.includes(mark_date)
+                    }).map((the_item, i) => {
+                        console.log("The item: ", the_item)
+                        return(
+                            <div key={i}>
+                                <p>{the_item.name}</p>
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </div>
     </div>
   )
