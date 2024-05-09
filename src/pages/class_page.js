@@ -62,17 +62,19 @@ const ClassPage = () => {
     console.log("Student clicked: ", id, "The mark date: ", mark_date)
     let new_sd_array = my_class_array.map((item) => {
         if(item.id == id){
-            console.log("Found the student ID")
+            // console.log("Found the student ID")
             item.dates = [...item.dates, mark_date]
             return item
         } else {
-            console.log("NO ID HERE")
+            // console.log("NO ID HERE")
             return item
         }
-        // console.log("Item data in map: ", item)
     })
-
-    console.log("The mapped array: ", new_sd_array)
+    // console.log("The mapped array: ", new_sd_array)
+    // ADD THE NEW STUDENT ARRAY TO ALL CLASSES THEN ADD ALL CLASSES TO DATABASE
+    let new_classes_array = { ...classes, [my_class_name]: new_sd_array }
+    localStorage.setItem("classes_object", JSON.stringify(new_classes_array))
+    console.log("New classes array: ", new_classes_array)
   }
 
   return (
